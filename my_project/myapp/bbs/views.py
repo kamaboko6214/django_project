@@ -40,17 +40,12 @@ class CreateView(LoginRequiredMixin, generic.edit.CreateView):
         form.instance.author = self.request.user
         return super(CreateView, self).form_valid(form)
 
-def index(request):
-    return HttpResponse('Hello Django')
-
-def detail(request, id):
-    return HttpResponse('detail ' + str(id))
-
-def create(request):
-    return HttpResponse('create')
-
-def update(request, id):
-    return HttpResponse('update ' + str(id))
+class UpdateView(generic.UpdateView):
+    model = Article
+    fields = ['content', 'title', ]
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super(UpdateView, self).form_valid(form)
 
 def delete(request, id):
     return HttpResponse('delete ' + str(id))
